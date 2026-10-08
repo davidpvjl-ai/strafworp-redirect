@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Onderzoek waterpolo</title>
+  <meta name="robots" content="noindex">
+  <style>
+    body { font-family: system-ui, sans-serif; display: grid; place-items: center; min-height: 100vh; margin: 0; background: #f4f6f8; color: #222; }
+    p { font-size: 1.1rem; }
+  </style>
+</head>
+<body>
+  <p>Een moment, de vragenlijst wordt geopend…</p>
+  <script>
+    // Vul hier de twee INVUL-links (viewform) uit het logboek van het Apps Script in:
+    const FORM_A = "https://docs.google.com/forms/d/e/1FAIpQLSclpowKcaqTa7HnosZFVfY4yxPmYzfLQmdi8rRL_sWejdvUZA/viewform";  // lage druk
+    const FORM_B = "https://docs.google.com/forms/d/e/1FAIpQLSeGXOlhAmDA6MF0hjnV-734uMdp6RLC18ptG39efIioOMQLWQ/viewform";  // hoge druk
+
+    // Echte willekeurige toewijzing, 50/50 (Math.random is hier ruim voldoende).
+    // Onthoud de toewijzing per apparaat, zodat iemand die de pagina herlaadt
+    // niet in de andere conditie belandt.
+    let keuze;
+    try {
+      keuze = localStorage.getItem("wp_conditie");
+      if (keuze !== "A" && keuze !== "B") {
+        keuze = Math.random() < 0.5 ? "A" : "B";
+        localStorage.setItem("wp_conditie", keuze);
+      }
+    } catch (e) {
+      keuze = Math.random() < 0.5 ? "A" : "B";
+    }
+    window.location.replace(keuze === "A" ? FORM_A : FORM_B);
+  </script>
+</body>
+</html>
